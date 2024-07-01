@@ -3,11 +3,12 @@ import { BudgetService } from './../services/budget.service';
 import { Component, Input, OnInit, signal} from '@angular/core';
 import { WelcomeComponent} from '../welcome/welcome.component';;
 import { FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
+import { PanelComponent } from '../panel/panel.component';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [WelcomeComponent, ReactiveFormsModule],
+  imports: [WelcomeComponent, ReactiveFormsModule, PanelComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
@@ -32,8 +33,8 @@ export class HomeComponent implements OnInit{
       this.calculateTotalPrice();
     });
 
-  }
 
+  }
 
   calculateTotalPrice() {
     this.totalPrice = this.budgets
