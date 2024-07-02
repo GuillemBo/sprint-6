@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Budget } from '../models/budget';
+import { FormGroup } from '@angular/forms';
 
 @Injectable({
   providedIn: 'root'
@@ -17,5 +18,19 @@ export class BudgetService {
     return this.budgets;
   }
 
+
+  totalSelection = 0
+
+  calculateTotalPrice(budgetForm: FormGroup): number {
+    return this.budgets
+      .filter(budget => budgetForm.get(budget.controlName)?.value)
+      .reduce((total, budget) => total + budget.price, 0);
+
+    }
+
+    calculateExtraCost(counterSignalPages: number, counterSignalLanguages: number) {
+      const ExtraCost = (counterSignalPages * counterSignalLanguages) * 30
+      return ExtraCost
+    }
 
 }

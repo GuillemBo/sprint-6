@@ -1,8 +1,8 @@
 import { Budget } from './../models/budget';
 import { BudgetService } from './../services/budget.service';
-import { Component, Input, OnInit, signal} from '@angular/core';
+import { Component, Input, OnInit, Signal, signal} from '@angular/core';
 import { WelcomeComponent} from '../welcome/welcome.component';;
-import { FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
+import { FormGroup, FormControl, ReactiveFormsModule, FormBuilder } from '@angular/forms';
 import { PanelComponent } from '../panel/panel.component';
 
 @Component({
@@ -14,31 +14,37 @@ import { PanelComponent } from '../panel/panel.component';
 })
 export class HomeComponent implements OnInit{
 
-  @Input() budgets: Budget[] = [];
-  budgetForm: FormGroup = new FormGroup({});
-  totalPrice = 0
+  budgets: Budget[] = [];
+  budgetForm: FormGroup;
+  totalPrice = 0;
+
+  counterSignalPages: Signal<number>;
+  counterSignalLanguages: Signal<number>;
 
 
-  constructor(private budgetService: BudgetService) { }
+  constructor(private fb: FormBuilder, private budgetService: BudgetService) {
+    this.budgetForm = this.fb.group({});
+    this.counterSignalPages = new Signal<number>(1); // Inicialización con valor inicial 1
+    this.counterSignalLanguages = new Signal<number>(1);
+  }
 
   ngOnInit(): void {
-   this.budgets = this.budgetService.getServices()
+    this.budgets = this.budgetService.getServices();
 
     this.budgets.forEach(budget => {
-      this.budgetForm.addControl(budget.controlName, new FormControl(false));
+      this.budgetForm.addControl(budget.controlName, this.fb.control(false));
     });
 
-    this.budgetForm.valueChanges.subscribe(values => {
-      console.log(values);
+    this.budgetForm.valueChanges.subscribe(() => {
       this.calculateTotalPrice();
     });
-
-
   }
 
-  calculateTotalPrice() {
-    this.totalPrice = this.budgets
-      .filter(budget => this.budgetForm.get(budget.controlName)?.value)
-      .reduce((total, Budget) => total + Budget.price, 0);
+
+  calculateTotalPrice(): void {
+    this.totalPrice = this.budgetService.calculateTotalPrice(this.budgetForm)
+    this.totalPrice += this.budgetService.calculateExtraCost(this.counterSignalPages(), this.counterSignalLanguages());
   }
+
+
 }

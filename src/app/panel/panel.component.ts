@@ -1,5 +1,6 @@
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, signal } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { BudgetService } from '../services/budget.service';
 
 @Component({
   selector: 'app-panel',
@@ -10,8 +11,13 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 })
 export class PanelComponent{
 
-  counterSignalPages = signal(0)
-  counterSignalLanguages = signal(0)
+  @Input() counterSignalPages = signal(1)
+  @Input() counterSignalLanguages = signal(1)
+
+  @Output() counterSignalPagesChange = new EventEmitter<number>();
+  @Output() counterSignalLanguagesChange = new EventEmitter<number>();
+
+  constructor(private budgetService: BudgetService) {}
 
   incrementPages() {
     this.counterSignalPages.set(this.counterSignalPages() + 1)
@@ -31,4 +37,5 @@ export class PanelComponent{
       this.counterSignalLanguages.set(this.counterSignalLanguages() - 1)
     }
   }
+
 }

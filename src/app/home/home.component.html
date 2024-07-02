@@ -18,7 +18,8 @@
       </div>
 
       @if (budget.controlName == 'Web' && budgetForm.controls['Web'].value) {
-        <app-panel>
+        <app-panel [counterSignalPages]="counterSignalPages"
+                  [counterSignalLanguages]="counterSignalLanguages">
 
         </app-panel>
       }
