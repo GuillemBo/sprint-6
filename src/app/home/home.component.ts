@@ -1,6 +1,6 @@
 import { Budget } from './../models/budget';
 import { BudgetService } from './../services/budget.service';
-import { Component, Input, OnInit, Signal, signal} from '@angular/core';
+import { Component, Input, OnInit, Signal, WritableSignal, signal} from '@angular/core';
 import { WelcomeComponent} from '../welcome/welcome.component';;
 import { FormGroup, FormControl, ReactiveFormsModule, FormBuilder } from '@angular/forms';
 import { PanelComponent } from '../panel/panel.component';
@@ -18,14 +18,14 @@ export class HomeComponent implements OnInit{
   budgetForm: FormGroup;
   totalPrice = 0;
 
-  counterSignalPages: Signal<number>;
-  counterSignalLanguages: Signal<number>;
+  counterSignalPages: WritableSignal<number>;
+  counterSignalLanguages: WritableSignal<number>;
 
 
   constructor(private fb: FormBuilder, private budgetService: BudgetService) {
     this.budgetForm = this.fb.group({});
-    this.counterSignalPages = new Signal<number>(1); // Inicialización con valor inicial 1
-    this.counterSignalLanguages = new Signal<number>(1);
+    this.counterSignalPages = signal(1); // Inicialización con valor inicial 1
+    this.counterSignalLanguages = signal(1);
   }
 
   ngOnInit(): void {
@@ -47,4 +47,11 @@ export class HomeComponent implements OnInit{
   }
 
 
+  onCounterSignalPagesChange(newCount: number): void {
+    this.counterSignalPages.set(newCount);
+  }
+
+  onCounterSignalLanguagesChange(newCount: number): void {
+    this.counterSignalLanguages.set(newCount);
+  }
 }

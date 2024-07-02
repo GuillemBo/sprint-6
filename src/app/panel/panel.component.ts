@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output, signal } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, WritableSignal, signal } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { BudgetService } from '../services/budget.service';
 
@@ -11,8 +11,8 @@ import { BudgetService } from '../services/budget.service';
 })
 export class PanelComponent{
 
-  @Input() counterSignalPages = signal(1)
-  @Input() counterSignalLanguages = signal(1)
+  @Input() counterSignalPages!: WritableSignal<number>;
+  @Input() counterSignalLanguages!: WritableSignal<number>;
 
   @Output() counterSignalPagesChange = new EventEmitter<number>();
   @Output() counterSignalLanguagesChange = new EventEmitter<number>();
@@ -21,20 +21,24 @@ export class PanelComponent{
 
   incrementPages() {
     this.counterSignalPages.set(this.counterSignalPages() + 1)
+    this.counterSignalPagesChange.emit(this.counterSignalPages());
   }
 
   decrementPages() {
     if(this.counterSignalPages() > 0)
       this.counterSignalPages.set(this.counterSignalPages() - 1)
+    this.counterSignalPagesChange.emit(this.counterSignalPages());
     }
 
   incrementLanguages(){
     this.counterSignalLanguages.set(this.counterSignalLanguages() + 1)
+    this.counterSignalLanguagesChange.emit(this.counterSignalLanguages());
   }
 
   decrementLanguages(){
     if (this.counterSignalLanguages() > 0) {
       this.counterSignalLanguages.set(this.counterSignalLanguages() - 1)
+      this.counterSignalLanguagesChange.emit(this.counterSignalLanguages());
     }
   }
 
