@@ -1,12 +1,14 @@
 <section>
   <div class="row vstack gap-3">
     <div class="d-flex justify-content-end gap-1 align-items-center">
+      <button type="button" data-bs-toggle="modal" data-bs-target="#infoModalPages"><i class="bi bi-info-circle"></i></button>
       <label for="numPages" class="mx-3">Nombre de pàgines</label>
       <button type="button" (click)="decrementPages()"><i class="bi bi-dash-circle"></i></button>
       <input type="number" id="numPages" class="rounded costume-input text-center" [value]="counterSignalPages()" readonly>
       <button type="button" (click)="incrementPages()"><i class="bi bi-plus-circle"></i></button>
     </div>
     <div class="d-flex justify-content-end gap-1 align-items-center">
+      <button type="button" data-bs-toggle="modal" data-bs-target="#infoModalLanguages"><i class="bi bi-info-circle"></i></button>
       <label for="numLanguages" class="mx-3">Nombre de llenguatges</label>
       <button type="button" (click)="decrementLanguages()"><i class="bi bi-dash-circle"></i></button>
       <input type="number" id="numLanguages" class="rounded costume-input text-center" [value]="counterSignalLanguages()" readonly>
@@ -14,3 +16,33 @@
     </div>
   </div>
 </section>
+
+
+<div class="modal fade" id="infoModalPages" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content text-center">
+      <div class="d-flex justify-content-center">
+        <h1 class="modal-title fs-5 fw-bold pt-5" id="exampleModalLabel">Nombre de pàgines</h1>
+      </div>
+      <div class="modal-body pb-5">
+        Afegeix el nombre de pàgines que tindrà el teu projecte.<br>
+        El cost de cada pàgina es de 30€.
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="infoModalLanguages" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content text-center">
+      <div class="d-flex justify-content-center">
+        <h1 class="modal-title fs-5 fw-bold pt-5" id="exampleModalLabel">Nombre de llenguatges</h1>
+      </div>
+      <div class="modal-body pb-5">
+        Afegeix els llenguatges que tindrà el teu progecte.<br>
+        El cost de cada llenguatge es de 30€.
+      </div>
+    </div>
+  </div>
+</div>

@@ -24,8 +24,8 @@ export class HomeComponent implements OnInit{
 
   constructor(private fb: FormBuilder, private budgetService: BudgetService) {
     this.budgetForm = this.fb.group({});
-    this.counterSignalPages = signal(1); // Inicialización con valor inicial 1
-    this.counterSignalLanguages = signal(1);
+    this.counterSignalPages = signal(0); // Inicialización con valor inicial 1
+    this.counterSignalLanguages = signal(0);
   }
 
   ngOnInit(): void {
@@ -56,4 +56,5 @@ export class HomeComponent implements OnInit{
     this.counterSignalLanguages.set(newCount);
     this.calculateTotalPrice();
   }
+
 }

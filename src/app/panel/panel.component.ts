@@ -1,11 +1,12 @@
 import { Component, EventEmitter, Input, OnInit, Output, WritableSignal, signal } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { BudgetService } from '../services/budget.service';
+import { ModalComponent } from '../shared/modal/modal.component';
 
 @Component({
   selector: 'app-panel',
   standalone: true,
-  imports: [],
+  imports: [ModalComponent],
   templateUrl: './panel.component.html',
   styleUrl: './panel.component.scss'
 })
