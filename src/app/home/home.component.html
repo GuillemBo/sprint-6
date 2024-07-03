@@ -20,8 +20,8 @@
       @if (budget.controlName == 'Web' && budgetForm.controls['Web'].value) {
         <app-panel [counterSignalPages]="counterSignalPages"
                   [counterSignalLanguages]="counterSignalLanguages"
-                  (counterSignalPagesChange)="onCounterSignalPagesChange($event)"
-                  (counterSignalLanguagesChange)="onCounterSignalLanguagesChange($event)">
+                  (counterSignalPagesChange)="onCounterSignalPagesChange(counterSignalPages())"
+                  (counterSignalLanguagesChange)="onCounterSignalLanguagesChange(counterSignalLanguages())">
 
         </app-panel>
       }

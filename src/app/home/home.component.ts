@@ -49,9 +49,11 @@ export class HomeComponent implements OnInit{
 
   onCounterSignalPagesChange(newCount: number): void {
     this.counterSignalPages.set(newCount);
+    this.calculateTotalPrice();
   }
 
   onCounterSignalLanguagesChange(newCount: number): void {
     this.counterSignalLanguages.set(newCount);
+    this.calculateTotalPrice();
   }
 }
