@@ -1,14 +1,13 @@
 import { Budget } from './../models/budget';
 import { BudgetService } from './../services/budget.service';
 import { Component, Input, OnInit, Signal, WritableSignal, signal} from '@angular/core';
-import { WelcomeComponent} from '../welcome/welcome.component';;
 import { FormGroup, FormControl, ReactiveFormsModule, FormBuilder } from '@angular/forms';
 import { PanelComponent } from '../panel/panel.component';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [WelcomeComponent, ReactiveFormsModule, PanelComponent],
+  imports: [ReactiveFormsModule, PanelComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })

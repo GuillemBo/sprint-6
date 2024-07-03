@@ -10,8 +10,7 @@ describe('HomeComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [HomeComponent],
-      imports: [ReactiveFormsModule],
+      imports: [ReactiveFormsModule, HomeComponent],
       providers: [FormBuilder, BudgetService]
     }).compileComponents();
   });
