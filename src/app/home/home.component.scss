@@ -1,5 +1,5 @@
 .card {
-  width: 40%;
+  width: 55%;
 }
 
 .custom-width{
@@ -7,4 +7,8 @@
 }
 
 
-
+.custom-card:hover {
+  border-color: rgb(0, 255, 136);
+  cursor: pointer;
+  background-color: rgba(187, 175, 175, 0.1);
+}

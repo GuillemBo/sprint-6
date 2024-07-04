@@ -1,13 +1,14 @@
 import { Budget } from './../models/budget';
 import { BudgetService } from './../services/budget.service';
-import { Component, Input, OnInit, Signal, WritableSignal, signal} from '@angular/core';
-import { FormGroup, FormControl, ReactiveFormsModule, FormBuilder } from '@angular/forms';
+import { Component, OnInit, WritableSignal, signal} from '@angular/core';
+import { FormGroup, ReactiveFormsModule, FormBuilder } from '@angular/forms';
 import { PanelComponent } from '../panel/panel.component';
+import { BudgetListComponent } from '../budget-list/budget-list.component';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [ReactiveFormsModule, PanelComponent],
+  imports: [ReactiveFormsModule, PanelComponent, BudgetListComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
@@ -37,6 +38,12 @@ export class HomeComponent implements OnInit{
     this.budgetForm.valueChanges.subscribe(() => {
       this.calculateTotalPrice();
     });
+
+    this.budgetForm.get('Web')?.valueChanges.subscribe(value => {
+      if (!value) {
+        this.resetPagesLanguages();
+      }
+    });
   }
 
 
@@ -54,6 +61,11 @@ export class HomeComponent implements OnInit{
   onCounterSignalLanguagesChange(newCount: number): void {
     this.counterSignalLanguages.set(newCount);
     this.calculateTotalPrice();
+  }
+
+  resetPagesLanguages() {
+    this.counterSignalLanguages.set(0)
+    this.counterSignalPages.set(0)
   }
 
 }

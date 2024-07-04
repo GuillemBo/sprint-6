@@ -18,7 +18,7 @@ describe('HomeComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(HomeComponent);
     component = fixture.componentInstance;
-    budgetService = TestBed.inject(BudgetService); // Inject BudgetService
+    budgetService = TestBed.inject(BudgetService);
     fixture.detectChanges();
   });
 
@@ -27,7 +27,7 @@ describe('HomeComponent', () => {
   });
 
   it('should calculate total price correctly', () => {
-    // Mock budget data
+
     const budgets = [
       { title: 'Seo', description: 'Programación web completa', price: 300, controlName: 'Seo' },
       { title: 'Ads', description: 'Programación web completa', price: 400, controlName: 'Ads' },
@@ -35,19 +35,15 @@ describe('HomeComponent', () => {
     ];
     spyOn(budgetService, 'getServices').and.returnValue(budgets);
 
-    // Set up form
     component.ngOnInit();
 
-    // Simulate form values
     component.budgetForm.patchValue({
       'Seo': true,
       'Ads': true
     });
 
-    // Trigger calculation
     component.calculateTotalPrice();
 
-    // Check totalPrice calculation
     expect(component.totalPrice).toEqual(700); // 300 + 400
   });
 });

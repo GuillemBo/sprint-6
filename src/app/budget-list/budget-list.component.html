@@ -1,1 +1,25 @@
-<p>budget-list works!</p>
+<form [formGroup]="budgetForm2" class="d-flex flex-column align-items-center">
+
+  <div class="card mb-3 p-4 shadow rounded-4 mt-5 d-flex">
+
+    <h3>Demanar pressupost</h3>
+
+      <div class="row g-2 mt-2 align-items-center justify-content-center d-flex p-3">
+        <div class="col-3">
+          <input type="text" id="name" class="form-control" formControlName="name" placeholder="Nom">
+        </div>
+        <div class="col-3">
+          <input type="number" id="phone" class="form-control" formControlName="phone" placeholder="Telèfon">
+        </div>
+        <div class="col-3">
+          <input type="email" id="email" class="form-control" formControlName="email" placeholder="E-mail">
+        </div>
+        <div class="col-3">
+          <button class="btn btn-success w-100">Sol·licitar pressupost<i class="bi bi-arrow-right ms-2"></i></button>
+        </div>
+
+      </div>
+
+  </div>
+
+</form>
