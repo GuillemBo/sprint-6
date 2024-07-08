@@ -1,9 +1,9 @@
+import { Component, OnInit, WritableSignal, signal } from '@angular/core';
+import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { BudgetListComponent } from '../budget-list/budget-list.component';
+import { PanelComponent } from '../panel/panel.component';
 import { Budget } from './../models/budget';
 import { BudgetService } from './../services/budget.service';
-import { Component, OnInit, WritableSignal, signal} from '@angular/core';
-import { FormGroup, ReactiveFormsModule, FormBuilder } from '@angular/forms';
-import { PanelComponent } from '../panel/panel.component';
-import { BudgetListComponent } from '../budget-list/budget-list.component';
 
 @Component({
   selector: 'app-home',
@@ -15,7 +15,8 @@ import { BudgetListComponent } from '../budget-list/budget-list.component';
 export class HomeComponent implements OnInit{
 
   budgets: Budget[] = [];
-  budgetForm: FormGroup;
+  budgetForm: FormGroup = this.fb.group({
+  });
   totalPrice = 0;
 
   counterSignalPages: WritableSignal<number>;
@@ -23,12 +24,11 @@ export class HomeComponent implements OnInit{
 
 
   constructor(private fb: FormBuilder, private budgetService: BudgetService) {
-    this.budgetForm = this.fb.group({});
-    this.counterSignalPages = signal(0); // Inicialización con valor inicial 1
+    this.counterSignalPages = signal(0);
     this.counterSignalLanguages = signal(0);
     this.budgetService.setBudgetForm(this.budgetForm);
   }
-
+  
   ngOnInit(): void {
     this.budgets = this.budgetService.getServices();
 
@@ -40,7 +40,7 @@ export class HomeComponent implements OnInit{
       this.calculateTotalPrice();
     });
 
-    this.budgetForm.get('Web')?.valueChanges.subscribe(value => {
+    this.budgetForm.get('web')?.valueChanges.subscribe(value => {
       if (!value) {
         this.resetPagesLanguages();
       }
@@ -49,7 +49,7 @@ export class HomeComponent implements OnInit{
 
 
   calculateTotalPrice(): void {
-    this.totalPrice = this.budgetService.calculateTotalPrice(this.budgetForm)
+    this.totalPrice = this.budgetService.calculateTotalPrice(this.budgetForm.value)
     this.totalPrice += this.budgetService.calculateExtraCost(this.counterSignalPages(), this.counterSignalLanguages());
   }
 
@@ -68,5 +68,10 @@ export class HomeComponent implements OnInit{
     this.counterSignalLanguages.set(0)
     this.counterSignalPages.set(0)
   }
+
+  getTotalPrice() {
+    return this.totalPrice
+  }
+  
 
 }

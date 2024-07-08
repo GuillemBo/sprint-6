@@ -1,7 +1,7 @@
 <form [formGroup]="budgetForm" class="d-flex flex-column align-items-center">
   @for (budget of budgets; track $index) {
 
-  <label class="card custom-card mb-3 p-4 shadow rounded-4 form-check-label" [for]="budget.controlName">
+  <div class="card custom-card mb-3 p-4 shadow rounded-4 form-check-label">
 
     <div class="row g-0 align-items-center">
       <div class="col-md-4">
@@ -14,12 +14,13 @@
         </div>
       </div>
       <div class="form-check col-md-4 d-flex justify-content-center gap-2">
+        <label [for]="budget.controlName"></label>
         <input class="form-check-input" type="checkbox" [formControlName]="budget.controlName"
           id="{{budget.controlName}}">
         Afegir
       </div>
 
-      @if (budget.controlName == 'Web' && budgetForm.controls['Web'].value) {
+      @if (budget.controlName == 'web' && budgetForm.controls['web'].value) {
 
       <app-panel [counterSignalPages]="counterSignalPages" [counterSignalLanguages]="counterSignalLanguages"
         (counterSignalPagesChange)="onCounterSignalPagesChange(counterSignalPages())"
@@ -30,7 +31,7 @@
 
     </div>
 
-  </label>
+  </div>
 }
 </form>
 
@@ -43,4 +44,4 @@
 </div>
 
 
-<app-budget-list></app-budget-list>
+<app-budget-list [totalPrice]="totalPrice"></app-budget-list>

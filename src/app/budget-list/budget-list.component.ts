@@ -1,6 +1,7 @@
+import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { CompleteBudget } from '../models/budget';
 import { BudgetService } from './../services/budget.service';
-import { Component, EventEmitter, OnInit, Output, output } from '@angular/core';
 
 @Component({
   selector: 'app-budget-list',
@@ -13,6 +14,8 @@ export class BudgetListComponent implements OnInit{
 
   budgetForm2: FormGroup;
 
+  @Input() totalPrice: number = 0;
+  pressupostos: CompleteBudget[] = []
 
   constructor(private fb: FormBuilder ,public BudgetService: BudgetService) {
     this.budgetForm2 = this.fb.group({
@@ -22,20 +25,20 @@ export class BudgetListComponent implements OnInit{
     });
   }
 
+  
   ngOnInit(): void {
     console.log(this.BudgetService.pressupostos);
-  }
 
+    this.pressupostos = this.BudgetService.getPressupostos();
+  }
+  
   onSubmit() {
     if (this.budgetForm2.valid) {
 
       // Obtener el formulario principal desde el servicio
       const budgetForm = this.BudgetService.getBudgetForm();
 
-      // Calcular el precio total
-
-
-      const totalPrice = this.BudgetService.calculateTotalPrice(budgetForm);
+      // const totalPrice = this.BudgetService.calculateTotalPrice(budgetForm);
       const selectedServices = this.BudgetService.getSelectedServices(budgetForm);
 
       // Crear un nuevo presupuesto
@@ -44,7 +47,7 @@ export class BudgetListComponent implements OnInit{
         phone: this.budgetForm2.get('phone')?.value,
         email: this.budgetForm2.get('email')?.value,
         services: selectedServices,
-        totalPrice: totalPrice
+        totalPrice: this.totalPrice
       };
 
       // Agregar el nuevo presupuesto al array
@@ -55,8 +58,5 @@ export class BudgetListComponent implements OnInit{
       console.log('Form is invalid');
     }
   }
-
-
-
 
 }

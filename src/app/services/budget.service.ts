@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Budget, CompleteBudget } from '../models/budget';
 import { FormGroup } from '@angular/forms';
+import { Budget, CompleteBudget } from '../models/budget';
 
 @Injectable({
   providedIn: 'root'
@@ -8,9 +8,9 @@ import { FormGroup } from '@angular/forms';
 export class BudgetService {
 
   private budgets: Budget[] = [
-    { title: 'Seo', description: 'Programació d una web responsive completa', price: 300, controlName: 'Seo'},
-    { title: 'Ads', description: 'Programació d una web responsive completa', price: 400, controlName: 'Ads'},
-    { title: 'Web', description: 'Programació d una web responsive completa', price: 500, controlName: 'Web'}
+    { title: 'Seo', description: 'Programació d una web responsive completa', price: 300, controlName: 'seo'},
+    { title: 'Ads', description: 'Programació d una web responsive completa', price: 400, controlName: 'ads'},
+    { title: 'Web', description: 'Programació d una web responsive completa', price: 500, controlName: 'web'}
   ];
   constructor() { }
 
@@ -22,9 +22,9 @@ export class BudgetService {
 
   totalSelection = 0
 
-  calculateTotalPrice(budgetForm: FormGroup): number {
+  calculateTotalPrice(servicesFormValues:any): number {
     return this.budgets
-      .filter(budget => budgetForm.get(budget.controlName)?.value)
+      .filter(budget => servicesFormValues[budget.controlName])
       .reduce((total, budget) => total + budget.price, 0);
     }
 
@@ -50,6 +50,10 @@ export class BudgetService {
 
     getBudgetForm(): FormGroup {
       return this.budgetForm;
+    }
+
+    getPressupostos() {
+      return this.pressupostos
     }
 
 }

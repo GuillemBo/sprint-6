@@ -35,28 +35,44 @@
 
 
 <section class="d-flex flex-column align-items-center">
-  <div class="card mb-3 p-4 shadow rounded-4 mt-5 d-flex">
-
-    <h3>Pressupostos en curs</h3>
-
+  <h3 class="container mt-3">Pressupostos en curs:</h3>
+  @for (pressupost of pressupostos; track $index) {
+    <div class="card mb-3 p-4 shadow rounded-4 mt-5 d-flex">
+      
       <div class="row g-2 mt-2 align-items-center justify-content-center d-flex p-3">
         <div class="col-3">
-
-        </div>
-        <div class="col-3">
-          Serveis contractats:
           <ul>
             <li>
-
+              {{this.pressupost.name}}
+            </li>
+            <li>
+              {{this.pressupost.phone}}
+            </li>
+            <li>
+              {{this.pressupost.email}}
             </li>
           </ul>
         </div>
         <div class="col-3">
-          <h3>Total:</h3>
+          Serveis contractats:
+          <ul>
+            
+            @for (service of pressupost.services; track $index){
+              <li>
+                {{this.pressupost.services[$index].title}}
+              </li>
+            }
+            
+          </ul>
         </div>
-
+        <div class="col-3">
+          <h3>Total: {{this.pressupost.totalPrice}} €</h3>
+        </div>
+        
       </div>
-
-  </div>
-
-</section>
+      
+    </div>
+    
+  }
+  </section>
+  
