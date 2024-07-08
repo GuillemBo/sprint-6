@@ -1,4 +1,4 @@
-<form [formGroup]="budgetForm2" class="d-flex flex-column align-items-center">
+<form [formGroup]="budgetForm2" (ngSubmit)="onSubmit()" class="d-flex flex-column align-items-center">
 
   <div class="card mb-3 p-4 shadow rounded-4 mt-5 d-flex">
 
@@ -6,16 +6,25 @@
 
       <div class="row g-2 mt-2 align-items-center justify-content-center d-flex p-3">
         <div class="col-3">
-          <input type="text" id="name" class="form-control" formControlName="name" placeholder="Nom">
+          <input type="text" id="name" class="form-control" formControlName="name" placeholder="Nom"  [class]="{'is-invalid': budgetForm2.get('name')?.invalid && (budgetForm2.get('name')?.dirty || budgetForm2.get('name')?.touched)}">
+          <div class="invalid-feedback">
+            Si us plau poseu un nom.
+          </div>
         </div>
         <div class="col-3">
-          <input type="number" id="phone" class="form-control" formControlName="phone" placeholder="Telèfon">
+          <input type="number" id="phone" class="form-control" formControlName="phone" placeholder="Telèfon" [class]="{'is-invalid': budgetForm2.get('phone')?.invalid && (budgetForm2.get('phone')?.dirty || budgetForm2.get('phone')?.touched)}">
+          <div class="invalid-feedback">
+            Introdueix un telèfon vàlid.
+          </div>
         </div>
         <div class="col-3">
-          <input type="email" id="email" class="form-control" formControlName="email" placeholder="E-mail">
+          <input type="email" id="email" class="form-control" formControlName="email" placeholder="E-mail" [class]="{'is-invalid': budgetForm2.get('email')?.invalid && (budgetForm2.get('email')?.dirty || budgetForm2.get('email')?.touched)}">
+          <div class="invalid-feedback">
+            Introdueix un e-mail vàlid.
+          </div>
         </div>
         <div class="col-3">
-          <button class="btn btn-success w-100">Sol·licitar pressupost<i class="bi bi-arrow-right ms-2"></i></button>
+          <button type="submit" class="btn btn-success w-100">Sol·licitar pressupost<i class="bi bi-arrow-right ms-2"></i></button>
         </div>
 
       </div>
@@ -23,3 +32,31 @@
   </div>
 
 </form>
+
+
+<section class="d-flex flex-column align-items-center">
+  <div class="card mb-3 p-4 shadow rounded-4 mt-5 d-flex">
+
+    <h3>Pressupostos en curs</h3>
+
+      <div class="row g-2 mt-2 align-items-center justify-content-center d-flex p-3">
+        <div class="col-3">
+
+        </div>
+        <div class="col-3">
+          Serveis contractats:
+          <ul>
+            <li>
+
+            </li>
+          </ul>
+        </div>
+        <div class="col-3">
+          <h3>Total:</h3>
+        </div>
+
+      </div>
+
+  </div>
+
+</section>

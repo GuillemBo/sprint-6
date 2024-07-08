@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Budget } from '../models/budget';
+import { Budget, CompleteBudget } from '../models/budget';
 import { FormGroup } from '@angular/forms';
 
 @Injectable({
@@ -18,6 +18,7 @@ export class BudgetService {
     return this.budgets;
   }
 
+  private budgetForm!: FormGroup;
 
   totalSelection = 0
 
@@ -25,7 +26,6 @@ export class BudgetService {
     return this.budgets
       .filter(budget => budgetForm.get(budget.controlName)?.value)
       .reduce((total, budget) => total + budget.price, 0);
-
     }
 
     calculateExtraCost(counterSignalPages: number, counterSignalLanguages: number) {
@@ -33,6 +33,23 @@ export class BudgetService {
       return ExtraCost
     }
 
-    public pressupostos: Budget[] = [];
+    public pressupostos: CompleteBudget[] = [];
+
+
+    addPresupuesto(budget: CompleteBudget) {
+      this.pressupostos.push(budget);
+    }
+
+    getSelectedServices(budgetForm: FormGroup): Budget[] {
+      return this.budgets.filter(budget => budgetForm.get(budget.controlName)?.value);
+    }
+
+    setBudgetForm(form: FormGroup) {
+      this.budgetForm = form;
+    }
+
+    getBudgetForm(): FormGroup {
+      return this.budgetForm;
+    }
 
 }

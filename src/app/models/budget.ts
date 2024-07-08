@@ -4,3 +4,11 @@ export interface Budget {
   price: number;
   controlName: string;
 }
+
+export interface CompleteBudget {
+  name: string;
+  phone: string;
+  email: string;
+  services: Budget[];
+  totalPrice: number;
+}

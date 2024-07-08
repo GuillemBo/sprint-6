@@ -26,6 +26,7 @@ export class HomeComponent implements OnInit{
     this.budgetForm = this.fb.group({});
     this.counterSignalPages = signal(0); // Inicialización con valor inicial 1
     this.counterSignalLanguages = signal(0);
+    this.budgetService.setBudgetForm(this.budgetForm);
   }
 
   ngOnInit(): void {
