@@ -11,4 +11,5 @@ export interface CompleteBudget {
   email: string;
   services: Budget[];
   totalPrice: number;
+  fechaActual: Date;
 }

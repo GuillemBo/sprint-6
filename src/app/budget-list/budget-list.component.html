@@ -4,75 +4,97 @@
 
     <h3>Demanar pressupost</h3>
 
-      <div class="row g-2 mt-2 align-items-center justify-content-center d-flex p-3">
-        <div class="col-3">
-          <input type="text" id="name" class="form-control" formControlName="name" placeholder="Nom"  [class]="{'is-invalid': budgetForm2.get('name')?.invalid && (budgetForm2.get('name')?.dirty || budgetForm2.get('name')?.touched)}">
-          <div class="invalid-feedback">
-            Si us plau poseu un nom.
-          </div>
+    <div class="row g-2 mt-2 align-items-center justify-content-center d-flex p-3">
+      <div class="col-3">
+        <input type="text" id="name" class="form-control" formControlName="name" placeholder="Nom"
+          [class]="{'is-invalid': budgetForm2.get('name')?.invalid && (budgetForm2.get('name')?.dirty || budgetForm2.get('name')?.touched)}">
+        <div class="invalid-feedback">
+          Si us plau poseu un nom.
         </div>
-        <div class="col-3">
-          <input type="number" id="phone" class="form-control" formControlName="phone" placeholder="Telèfon" [class]="{'is-invalid': budgetForm2.get('phone')?.invalid && (budgetForm2.get('phone')?.dirty || budgetForm2.get('phone')?.touched)}">
-          <div class="invalid-feedback">
-            Introdueix un telèfon vàlid.
-          </div>
-        </div>
-        <div class="col-3">
-          <input type="email" id="email" class="form-control" formControlName="email" placeholder="E-mail" [class]="{'is-invalid': budgetForm2.get('email')?.invalid && (budgetForm2.get('email')?.dirty || budgetForm2.get('email')?.touched)}">
-          <div class="invalid-feedback">
-            Introdueix un e-mail vàlid.
-          </div>
-        </div>
-        <div class="col-3">
-          <button type="submit" class="btn btn-success w-100">Sol·licitar pressupost<i class="bi bi-arrow-right ms-2"></i></button>
-        </div>
-
       </div>
+      <div class="col-3">
+        <input type="number" id="phone" class="form-control" formControlName="phone" placeholder="Telèfon"
+          [class]="{'is-invalid': budgetForm2.get('phone')?.invalid && (budgetForm2.get('phone')?.dirty || budgetForm2.get('phone')?.touched)}">
+        <div class="invalid-feedback">
+          Introdueix un telèfon vàlid.
+        </div>
+      </div>
+      <div class="col-3">
+        <input type="email" id="email" class="form-control" formControlName="email" placeholder="E-mail"
+          [class]="{'is-invalid': budgetForm2.get('email')?.invalid && (budgetForm2.get('email')?.dirty || budgetForm2.get('email')?.touched)}">
+        <div class="invalid-feedback">
+          Introdueix un e-mail vàlid.
+        </div>
+      </div>
+      <div class="col-3">
+        <button type="submit" class="btn btn-success w-100">Sol·licitar pressupost<i
+            class="bi bi-arrow-right ms-2"></i></button>
+      </div>
+
+    </div>
 
   </div>
 
 </form>
 
+<hr class="col-sm-10 mx-auto mb-5 mt-5 w-75" style="border-top: 5px dotted #000;">
 
 <section class="d-flex flex-column align-items-center">
-  <h3 class="container mt-3">Pressupostos en curs:</h3>
-  @for (pressupost of pressupostos; track $index) {
-    <div class="card mb-3 p-4 shadow rounded-4 mt-5 d-flex">
-      
-      <div class="row g-2 mt-2 align-items-center justify-content-center d-flex p-3">
-        <div class="col-3">
-          <ul>
-            <li>
-              {{this.pressupost.name}}
-            </li>
-            <li>
-              {{this.pressupost.phone}}
-            </li>
-            <li>
-              {{this.pressupost.email}}
-            </li>
-          </ul>
-        </div>
-        <div class="col-3">
-          Serveis contractats:
-          <ul>
-            
-            @for (service of pressupost.services; track $index){
-              <li>
-                {{this.pressupost.services[$index].title}}
-              </li>
-            }
-            
-          </ul>
-        </div>
-        <div class="col-3">
-          <h3>Total: {{this.pressupost.totalPrice}} €</h3>
-        </div>
-        
-      </div>
-      
+  @for (pressupost of filterItems(); track $index) {
+  @if ($index === 0) {
+  <h3 class="container mt-3 mb-3">Pressupostos en curs:</h3>
+  <div class="container w-50 d-flex justify-content-end">
+    <div class="mx-3">
+      <input type="text" class="form-control icon-custom"  [(ngModel)]="searchTerm" placeholder="Search..." (keyup)="filterItems()">
     </div>
-    
+    <div class="row g-5 text-center">
+      <div class="col-4">
+        <button type="button" class="btn" (click)="ordenarPorFecha()">Data</button>
+      </div>
+      <div class="col-4">
+        <button type="button" class="btn" (click)="ordenarPorPrecio()">Import</button>
+      </div>
+      <div class="col-4">
+        <button type="button" class="btn" (click)="ordenarPorNombre()">Nom</button>
+      </div>
+    </div>
+  </div>
   }
-  </section>
-  
+  <div class="card p-1 shadow rounded-4 mt-3 d-flex">
+
+    <div class="row mt-2 align-items-center justify-content-center d-flex p-3">
+      <div class="col-4">
+
+        <h2>{{this.pressupost.name}}</h2>
+
+        <p>{{this.pressupost.phone}}</p>
+
+        <p>{{this.pressupost.email}}</p>
+
+
+      </div>
+      <div class="col-4">
+        <p class="fw-semibold">Serveis contractats:</p>
+        <ul>
+
+          @for (service of pressupost.services; track $index){
+          <li>
+            {{this.pressupost.services[$index].title}}
+          </li>
+          }
+
+        </ul>
+      </div>
+      <div class="col-4 d-flex justify-content-around">
+        <div>
+          <p>Total:</p>
+          <h3>{{this.pressupost.totalPrice}} €</h3>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  }
+</section>
