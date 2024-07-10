@@ -31,6 +31,13 @@
             class="bi bi-arrow-right ms-2"></i></button>
       </div>
 
+      @if (this.showError) {
+
+      <div class="col-12 mt-2 text-center">
+        <p class="text-danger">Almenys un servei ha de ser seleccionat.</p>
+      </div>
+      }
+
     </div>
 
   </div>
@@ -45,7 +52,8 @@
   <h3 class="container mt-3 mb-3">Pressupostos en curs:</h3>
   <div class="container w-50 d-flex justify-content-end">
     <div class="mx-3">
-      <input type="text" class="form-control icon-custom"  [(ngModel)]="searchTerm" placeholder="Search..." (keyup)="filterItems()">
+      <input type="text" class="form-control icon-custom" [(ngModel)]="searchTerm" placeholder="Search..."
+        (keyup)="filterItems()">
     </div>
     <div class="row g-5 text-center">
       <div class="col-4">
@@ -60,6 +68,7 @@
     </div>
   </div>
   }
+
   <div class="card p-1 shadow rounded-4 mt-3 d-flex">
 
     <div class="row mt-2 align-items-center justify-content-center d-flex p-3">
@@ -73,28 +82,31 @@
 
 
       </div>
-      <div class="col-4">
-        <p class="fw-semibold">Serveis contractats:</p>
-        <ul>
 
-          @for (service of pressupost.services; track $index){
-          <li>
-            {{this.pressupost.services[$index].title}}
-          </li>
-          }
+        <div class="col-4">
+          <p class="fw-semibold">Serveis contractats:</p>
+          <ul>
 
-        </ul>
-      </div>
-      <div class="col-4 d-flex justify-content-around">
-        <div>
-          <p>Total:</p>
-          <h3>{{this.pressupost.totalPrice}} €</h3>
+            @for (service of pressupost.services; track $index){
+              <li>
+                {{this.pressupost.services[$index].title}}
+              </li>
+            }
+
+          </ul>
         </div>
+        <div class="col-4 d-flex justify-content-around">
+
+          <div>
+            <p>Total:</p>
+            <h3>{{this.pressupost.totalPrice}} €</h3>
+          </div>
+
+        </div>
+
       </div>
 
     </div>
-
-  </div>
 
   }
 </section>

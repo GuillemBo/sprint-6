@@ -4,6 +4,7 @@ import { BudgetListComponent } from '../budget-list/budget-list.component';
 import { PanelComponent } from '../panel/panel.component';
 import { Budget } from './../models/budget';
 import { BudgetService } from './../services/budget.service';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -23,12 +24,13 @@ export class HomeComponent implements OnInit{
   counterSignalLanguages: WritableSignal<number>;
 
 
-  constructor(private fb: FormBuilder, private budgetService: BudgetService) {
+  constructor(private fb: FormBuilder, private budgetService: BudgetService, private router: Router,
+    private route: ActivatedRoute) {
     this.counterSignalPages = signal(0);
     this.counterSignalLanguages = signal(0);
     this.budgetService.setBudgetForm(this.budgetForm);
   }
-  
+
   ngOnInit(): void {
     this.budgets = this.budgetService.getServices();
 
@@ -36,8 +38,18 @@ export class HomeComponent implements OnInit{
       this.budgetForm.addControl(budget.controlName, this.fb.control(false));
     });
 
+    this.route.queryParams.subscribe(params => {
+      Object.keys(params).forEach(key => {
+        if (this.budgetForm.controls[key]) {
+          this.budgetForm.controls[key].setValue(params[key] === 'true');
+        }
+      });
+      this.calculateTotalPrice();
+    });
+
     this.budgetForm.valueChanges.subscribe(() => {
       this.calculateTotalPrice();
+      this.updateUrl();
     });
 
     this.budgetForm.get('web')?.valueChanges.subscribe(value => {
@@ -45,12 +57,25 @@ export class HomeComponent implements OnInit{
         this.resetPagesLanguages();
       }
     });
+
   }
 
 
   calculateTotalPrice(): void {
     this.totalPrice = this.budgetService.calculateTotalPrice(this.budgetForm.value)
     this.totalPrice += this.budgetService.calculateExtraCost(this.counterSignalPages(), this.counterSignalLanguages());
+  }
+
+  updateUrl(): void {
+    const queryParams: Params = {};
+    Object.keys(this.budgetForm.controls).forEach(key => {
+      queryParams[key] = this.budgetForm.controls[key].value.toString();
+    });
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: queryParams,
+      queryParamsHandling: 'merge'
+    });
   }
 
 
@@ -72,6 +97,6 @@ export class HomeComponent implements OnInit{
   getTotalPrice() {
     return this.totalPrice
   }
-  
+
 
 }

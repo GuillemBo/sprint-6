@@ -14,10 +14,12 @@ import { NgFor } from '@angular/common';
 export class BudgetListComponent implements OnInit{
 
   budgetForm2: FormGroup;
-
   fechaActual?: Date;
 
   @Input() totalPrice: number = 0;
+  @Input() budgetForm: FormGroup = this.fb.group({
+  });
+
   pressupostos: CompleteBudget[] = []
 
   constructor(private fb: FormBuilder ,public BudgetService: BudgetService) {
@@ -30,14 +32,22 @@ export class BudgetListComponent implements OnInit{
   }
 
 
-  ngOnInit(): void {
-    console.log(this.BudgetService.pressupostos);
+  formSubmitted: boolean = false;
+  showError: boolean = false;
 
+  ngOnInit(): void {
     this.pressupostos = this.BudgetService.getPressupostos();
   }
 
   onSubmit() {
-    if (this.budgetForm2.valid) {
+
+    this.showError = false;
+
+    this.budgetForm2.markAllAsTouched();
+
+    const atLeastOneChecked = Object.values(this.budgetForm.value).some(value => value);
+
+    if (this.budgetForm2.valid && (this.budgetForm.value.seo || this.budgetForm.value.ads || this.budgetForm.value.web)) {
 
       const budgetForm = this.BudgetService.getBudgetForm();
 
@@ -56,10 +66,13 @@ export class BudgetListComponent implements OnInit{
       this.BudgetService.addPresupuesto(newPresupuesto);
 
     } else {
+      if (!atLeastOneChecked) {
+        this.showError = true;
+      }
       console.log('Form is invalid');
     }
-  }
 
+  }
 
   searchTerm: string = '';
 
