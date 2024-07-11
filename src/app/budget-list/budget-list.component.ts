@@ -19,6 +19,9 @@ export class BudgetListComponent implements OnInit{
   @Input() budgetForm: FormGroup = this.fb.group({
   });
 
+  @Input() counterSignalPages: WritableSignal<number> = signal(0);
+  @Input() counterSignalLanguages: WritableSignal<number> = signal(0);
+
   counterValue: number = 0;
 
 
@@ -62,6 +65,8 @@ export class BudgetListComponent implements OnInit{
         services: selectedServices,
         totalPrice: this.totalPrice,
         fechaActual: this.fechaActual,
+        numPages: this.counterSignalPages(),
+        numLanguages: this.counterSignalLanguages()
       };
 
       this.BudgetService.addPresupuesto(newPresupuesto);
@@ -72,7 +77,6 @@ export class BudgetListComponent implements OnInit{
       }
       console.log('Form is invalid');
     }
-    console.log(this.pressupostos)
   }
 
 
@@ -90,6 +94,14 @@ export class BudgetListComponent implements OnInit{
     this.pressupostos.sort((a, b) => b.fechaActual.getTime() - a.fechaActual.getTime());
   }
 
+  getWebServiceDetails(pressupost: CompleteBudget): string {
+    const webService = pressupost.services.find(service => service.controlName === 'web');
+    if (webService) {
+      return `(${pressupost.numPages} pàgines, ${pressupost.numLanguages} llenguatges)`;
+    }
+    return '';
+  }
+  
 
   filterItems() {
     if (!this.searchTerm.trim()) {

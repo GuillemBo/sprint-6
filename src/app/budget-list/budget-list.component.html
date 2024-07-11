@@ -2,7 +2,7 @@
 
   <div class="card mb-3 p-4 shadow rounded-4 mt-5 d-flex">
 
-    <h3>Demanar pressupost</h3>
+    <h3 class="text-center-md-4">Demanar pressupost</h3>
 
     <div class="row g-2 mt-2 align-items-center justify-content-center d-flex p-3">
       <div class="col-12 col-xl-3">
@@ -93,9 +93,11 @@
           @for (service of pressupost.services; track $index){
           <li>
             {{this.pressupost.services[$index].title}}
+            @if (service.controlName === 'web') {
+              {{ getWebServiceDetails(pressupost) }}
+            }
           </li>
           }
-
         </ul>
       </div>
       <div class="col-12 col-xl-4 d-flex justify-content-around">

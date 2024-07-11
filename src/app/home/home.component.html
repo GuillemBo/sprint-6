@@ -1,7 +1,7 @@
 <form [formGroup]="budgetForm" class="d-flex flex-column align-items-center">
   @for (budget of budgets; track $index) {
 
-  <div class="card custom-card mb-3 p-4 shadow rounded-4 form-check-label">
+  <div class="card custom-card mb-3 p-4 shadow rounded-4 form-check-label text-center-md-4">
 
     <div class="row g-0 align-items-center">
       <div class="col-md-4">
@@ -44,4 +44,4 @@
 </div>
 
 
-<app-budget-list [totalPrice]="totalPrice" [budgetForm]="budgetForm"></app-budget-list>
+<app-budget-list [totalPrice]="totalPrice" [budgetForm]="budgetForm" [counterSignalLanguages]="counterSignalLanguages" [counterSignalPages]="counterSignalPages"></app-budget-list>

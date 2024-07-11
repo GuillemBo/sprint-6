@@ -8,9 +8,9 @@ import { Budget, CompleteBudget } from '../models/budget';
 export class BudgetService {
 
   private budgets: Budget[] = [
-    { title: 'Seo', description: 'Programació d una web responsive completa', price: 300, controlName: 'seo'},
-    { title: 'Ads', description: 'Programació d una web responsive completa', price: 400, controlName: 'ads'},
-    { title: 'Web', description: 'Programació d una web responsive completa', price: 500, controlName: 'web'}
+    { title: 'Seo', description: `Programació d'una web responsive completa`, price: 300, controlName: 'seo'},
+    { title: 'Ads', description: `Programació d'una web responsive completa`, price: 400, controlName: 'ads'},
+    { title: 'Web', description: `Programació d'una web responsive completa`, price: 500, controlName: 'web'}
   ];
   constructor() { }
 

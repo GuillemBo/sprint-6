@@ -13,4 +13,6 @@ export interface CompleteBudget {
   services: Budget[];
   totalPrice: number;
   fechaActual: Date;
+  numPages: number; 
+  numLanguages: number;
 }

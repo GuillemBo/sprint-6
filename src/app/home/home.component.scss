@@ -12,3 +12,12 @@
   cursor: pointer;
   background-color: rgba(187, 175, 175, 0.1);
 }
+
+
+@media (max-width: 768px) {
+
+  .text-center-md-4 {
+    text-align: center;
+  }
+
+}

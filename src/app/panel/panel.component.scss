@@ -16,3 +16,10 @@ button {
   padding: 0;
   cursor: pointer;
 }
+
+
+@media (max-width: 992px) {
+  .costume-input{
+    width: 50px;
+  }
+}
