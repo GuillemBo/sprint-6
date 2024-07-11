@@ -20,8 +20,7 @@ export class BudgetListComponent implements OnInit{
   });
 
   counterValue: number = 0;
-  @Input() counterSignalLanguages: WritableSignal<number> = signal(1);
-  @Input() counterSignalPages: WritableSignal<number> = signal(1);
+
 
   pressupostos: CompleteBudget[] = []
 
@@ -63,8 +62,6 @@ export class BudgetListComponent implements OnInit{
         services: selectedServices,
         totalPrice: this.totalPrice,
         fechaActual: this.fechaActual,
-        pages: this.counterSignalPages(),
-        languages: this.counterSignalLanguages()
       };
 
       this.BudgetService.addPresupuesto(newPresupuesto);
