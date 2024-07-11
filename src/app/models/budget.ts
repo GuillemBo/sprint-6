@@ -1,3 +1,4 @@
+import { signal } from '@angular/core';
 export interface Budget {
   title: string;
   description: string;

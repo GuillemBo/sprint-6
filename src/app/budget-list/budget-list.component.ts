@@ -1,13 +1,12 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, signal, WritableSignal } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CompleteBudget } from '../models/budget';
 import { BudgetService } from './../services/budget.service';
-import { NgFor } from '@angular/common';
 
 @Component({
   selector: 'app-budget-list',
   standalone: true,
-  imports: [ReactiveFormsModule, FormsModule, NgFor],
+  imports: [ReactiveFormsModule, FormsModule],
   templateUrl: './budget-list.component.html',
   styleUrl: './budget-list.component.scss'
 })
@@ -19,6 +18,10 @@ export class BudgetListComponent implements OnInit{
   @Input() totalPrice: number = 0;
   @Input() budgetForm: FormGroup = this.fb.group({
   });
+
+  counterValue: number = 0;
+  @Input() counterSignalLanguages: WritableSignal<number> = signal(1);
+  @Input() counterSignalPages: WritableSignal<number> = signal(1);
 
   pressupostos: CompleteBudget[] = []
 
@@ -60,6 +63,8 @@ export class BudgetListComponent implements OnInit{
         services: selectedServices,
         totalPrice: this.totalPrice,
         fechaActual: this.fechaActual,
+        pages: this.counterSignalPages(),
+        languages: this.counterSignalLanguages()
       };
 
       this.BudgetService.addPresupuesto(newPresupuesto);
@@ -70,8 +75,8 @@ export class BudgetListComponent implements OnInit{
       }
       console.log('Form is invalid');
     }
+    console.log(this.pressupostos)
   }
-
 
 
   searchTerm: string = '';
@@ -87,7 +92,6 @@ export class BudgetListComponent implements OnInit{
   ordenarPorFecha() {
     this.pressupostos.sort((a, b) => b.fechaActual.getTime() - a.fechaActual.getTime());
   }
-
 
 
   filterItems() {

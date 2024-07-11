@@ -26,8 +26,8 @@ export class HomeComponent implements OnInit{
 
   constructor(private fb: FormBuilder, private budgetService: BudgetService, private router: Router,
     private route: ActivatedRoute) {
-    this.counterSignalPages = signal(0);
-    this.counterSignalLanguages = signal(0);
+    this.counterSignalPages = signal(1);
+    this.counterSignalLanguages = signal(1);
     this.budgetService.setBudgetForm(this.budgetForm);
   }
 
@@ -50,7 +50,7 @@ export class HomeComponent implements OnInit{
           this.counterSignalLanguages.set(Number(params['numLanguages']));
         }
       });
-      
+
       this.calculateTotalPrice();
     });
 
@@ -102,8 +102,8 @@ export class HomeComponent implements OnInit{
   }
 
   resetPagesLanguages() {
-    this.counterSignalLanguages.set(0)
-    this.counterSignalPages.set(0)
+    this.counterSignalLanguages.set(1)
+    this.counterSignalPages.set(1)
   }
 
   getTotalPrice() {

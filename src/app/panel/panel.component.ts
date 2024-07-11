@@ -24,9 +24,9 @@ export class PanelComponent{
   }
 
   decrementPages() {
-    if(this.counterSignalPages() > 0)
+    if(this.counterSignalPages() > 1)
       this.counterSignalPages.set(this.counterSignalPages() - 1)
-    this.counterSignalPagesChange.emit(this.counterSignalPages());
+      this.counterSignalPagesChange.emit(this.counterSignalPages());
     }
 
   incrementLanguages(){
@@ -35,7 +35,7 @@ export class PanelComponent{
   }
 
   decrementLanguages(){
-    if (this.counterSignalLanguages() > 0) {
+    if (this.counterSignalLanguages() > 1) {
       this.counterSignalLanguages.set(this.counterSignalLanguages() - 1)
       this.counterSignalLanguagesChange.emit(this.counterSignalLanguages());
     }

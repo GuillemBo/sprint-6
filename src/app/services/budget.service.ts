@@ -29,8 +29,11 @@ export class BudgetService {
     }
 
     calculateExtraCost(counterSignalPages: number, counterSignalLanguages: number) {
-      const ExtraCost = (counterSignalPages * counterSignalLanguages) * 30
-      return ExtraCost
+      let ExtraCost: number = 0
+      if (this.budgetForm.value.web) {
+        ExtraCost = counterSignalPages * counterSignalLanguages * 30
+      }
+        return ExtraCost
     }
 
     public pressupostos: CompleteBudget[] = [];
