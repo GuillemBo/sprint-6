@@ -43,7 +43,14 @@ export class HomeComponent implements OnInit{
         if (this.budgetForm.controls[key]) {
           this.budgetForm.controls[key].setValue(params[key] === 'true');
         }
+        if (params['numPages']) {
+          this.counterSignalPages.set(Number(params['numPages']));
+        }
+        if (params['numLanguages']) {
+          this.counterSignalLanguages.set(Number(params['numLanguages']));
+        }
       });
+      
       this.calculateTotalPrice();
     });
 
@@ -67,7 +74,10 @@ export class HomeComponent implements OnInit{
   }
 
   updateUrl(): void {
-    const queryParams: Params = {};
+    const queryParams: Params = {
+      numPages: this.counterSignalPages().toString(),
+      numLanguages: this.counterSignalLanguages().toString()
+    };
     Object.keys(this.budgetForm.controls).forEach(key => {
       queryParams[key] = this.budgetForm.controls[key].value.toString();
     });
@@ -82,11 +92,13 @@ export class HomeComponent implements OnInit{
   onCounterSignalPagesChange(newCount: number): void {
     this.counterSignalPages.set(newCount);
     this.calculateTotalPrice();
+    this.updateUrl();
   }
 
   onCounterSignalLanguagesChange(newCount: number): void {
     this.counterSignalLanguages.set(newCount);
     this.calculateTotalPrice();
+    this.updateUrl();
   }
 
   resetPagesLanguages() {

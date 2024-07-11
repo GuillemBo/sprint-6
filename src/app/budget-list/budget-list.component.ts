@@ -31,7 +31,6 @@ export class BudgetListComponent implements OnInit{
 
   }
 
-
   formSubmitted: boolean = false;
   showError: boolean = false;
 
@@ -60,7 +59,7 @@ export class BudgetListComponent implements OnInit{
         email: this.budgetForm2.get('email')?.value,
         services: selectedServices,
         totalPrice: this.totalPrice,
-        fechaActual: this.fechaActual
+        fechaActual: this.fechaActual,
       };
 
       this.BudgetService.addPresupuesto(newPresupuesto);
@@ -71,8 +70,9 @@ export class BudgetListComponent implements OnInit{
       }
       console.log('Form is invalid');
     }
-
   }
+
+
 
   searchTerm: string = '';
 
@@ -88,6 +88,8 @@ export class BudgetListComponent implements OnInit{
     this.pressupostos.sort((a, b) => b.fechaActual.getTime() - a.fechaActual.getTime());
   }
 
+
+
   filterItems() {
     if (!this.searchTerm.trim()) {
       return this.pressupostos;
@@ -97,7 +99,7 @@ export class BudgetListComponent implements OnInit{
       pressupost.name.toLowerCase().includes(this.searchTerm.toLowerCase())
     );
 
-    return filtered.length > 0 ? filtered : [{ name: 'No hay resultados' } as CompleteBudget];
+    return filtered.length > 0 ? filtered : [{ name: 'No hay resultados'} as CompleteBudget];
   }
 
 }

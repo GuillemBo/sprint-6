@@ -1,5 +1,4 @@
 import { Component, EventEmitter, Input, OnInit, Output, WritableSignal, signal } from '@angular/core';
-import { BudgetService } from '../services/budget.service';
 import { ModalComponent } from '../shared/modal/modal.component';
 
 @Component({
@@ -17,7 +16,7 @@ export class PanelComponent{
   @Output() counterSignalPagesChange = new EventEmitter<number>();
   @Output() counterSignalLanguagesChange = new EventEmitter<number>();
 
-  constructor(private budgetService: BudgetService) {}
+  constructor() {}
 
   incrementPages() {
     this.counterSignalPages.set(this.counterSignalPages() + 1)

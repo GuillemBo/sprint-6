@@ -57,13 +57,13 @@
     </div>
     <div class="row g-5 text-center">
       <div class="col-4">
-        <button type="button" class="btn" (click)="ordenarPorFecha()">Data</button>
+        <button type="button" class="btn btn-custom" (click)="ordenarPorFecha()">Data</button>
       </div>
       <div class="col-4">
-        <button type="button" class="btn" (click)="ordenarPorPrecio()">Import</button>
+        <button type="button" class="btn btn-custom" (click)="ordenarPorPrecio()">Import</button>
       </div>
       <div class="col-4">
-        <button type="button" class="btn" (click)="ordenarPorNombre()">Nom</button>
+        <button type="button" class="btn btn-custom" (click)="ordenarPorNombre()">Nom</button>
       </div>
     </div>
   </div>
@@ -83,30 +83,38 @@
 
       </div>
 
-        <div class="col-4">
-          <p class="fw-semibold">Serveis contractats:</p>
-          <ul>
+      <div class="col-4">
 
-            @for (service of pressupost.services; track $index){
-              <li>
-                {{this.pressupost.services[$index].title}}
-              </li>
-            }
+        @if (filterItems()[0].name != 'No hay resultados') {
+        <p class="fw-semibold">Serveis contractats:</p>
+        }
+        <ul>
 
-          </ul>
+          @for (service of pressupost.services; track $index){
+          <li>
+            {{this.pressupost.services[$index].title}}
+          </li>
+          }
+
+        </ul>
+      </div>
+      <div class="col-4 d-flex justify-content-around">
+
+        @if (filterItems()[0].name != 'No hay resultados') {
+        <div>
+          <p>Total:</p>
+          <h3>{{this.pressupost.totalPrice}} €</h3>
         </div>
-        <div class="col-4 d-flex justify-content-around">
-
-          <div>
-            <p>Total:</p>
-            <h3>{{this.pressupost.totalPrice}} €</h3>
-          </div>
-
-        </div>
+        }
 
       </div>
 
     </div>
 
+  </div>
+
   }
 </section>
+
+
+<div class="container mt-5"></div>
